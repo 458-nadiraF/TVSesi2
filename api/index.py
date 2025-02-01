@@ -18,17 +18,17 @@ class handler(BaseHTTPRequestHandler):
       
         try:
             start_time = time.time()
-            content_length = int(self.headers.get('Content-Length', 0))  # Default to 0 if not present
-            if content_length > 0:
-                post_data = self.rfile.read(content_length).decode('utf-8')  # Decode bytes to string
-            else:
-                post_data = ""  # No data sent
+            # content_length = int(self.headers.get('Content-Length', 0))  # Default to 0 if not present
+            # if content_length > 0:
+            #     post_data = self.rfile.read(content_length).decode('utf-8')  # Decode bytes to string
+            # else:
+            #     post_data = ""  # No data sent
             
-            if not post_data.strip():  # Check if the body is empty or whitespace
-                raise ValueError("Empty request body")
+            # if not post_data.strip():  # Check if the body is empty or whitespace
+            #     raise ValueError("Empty request body")
             
             # Parse JSON
-            received_json = json.loads(post_data)
+            received_json = post_data
             #received_json = json.loads(post_data.decode('utf-8'))
             # price=received_json.get('price')
             # symbol=received_json.get('Symbol')
