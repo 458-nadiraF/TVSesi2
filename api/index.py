@@ -30,18 +30,18 @@ class handler(BaseHTTPRequestHandler):
             # Parse JSON
             received_json = json.loads(post_data)
             #received_json = json.loads(post_data.decode('utf-8'))
-            price=received_json.get('price')
-            symbol=received_json.get('Symbol')
-            try:
-                add=received_json.get('add')
-                add2=received_json.get('add2')
-            except:
-                add=""
-                add2=""
+            # price=received_json.get('price')
+            # symbol=received_json.get('Symbol')
+            # try:
+            #     add=received_json.get('add')
+            #     add2=received_json.get('add2')
+            # except:
+            #     add=""
+            #     add2=""
             forward_url=os.getenv('TELEGRAM_API')
             timestamp=timestamp = time.strftime("%m/%d/%Y %H:%M:%S", time.localtime())
             # Define the API endpoint where you want to forward the request
-            textContent=f"Alert: screener LQ45 M15 A: Any alert() function call \nBUY {symbol} {price} {add} {add2}\n{timestamp}"
+            textContent=f"Alert: screener Sesi2 A: Any alert() function call \nBUY {received_json}\n{timestamp}"
             params={
                "chat_id": f"{os.getenv('CHAT_ID')}",
                "text": textContent
@@ -91,8 +91,7 @@ class handler(BaseHTTPRequestHandler):
             self.end_headers()
             error_response = {
                 "error": str(e),
-                "message": "Error processing request",
-                "log_file": open(LOG_FILE_PATH).read()
+                "message": "Error processing request"
             }
             traceback.print_exc()
             self.wfile.write(json.dumps(error_response).encode())
