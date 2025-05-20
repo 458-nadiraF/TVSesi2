@@ -46,12 +46,17 @@ class handler(BaseHTTPRequestHandler):
                "chat_id": f"{os.getenv('CHAT_ID')}",
                "text": textContent
             }
-            
+            forward_url_n8n= os.getenv('N8N_API')
+            message_n8n = {"body":textContent}
             response = requests.post(
                 forward_url,
                 params=params
             )
-            
+            response_n8n = requests.post(
+                forward_url_n8n,
+                params=message_n8n
+            )
+
             execution_duration = (time.time() - start_time) * 1000
             # Send response back to the original client
             self.send_response(200)
